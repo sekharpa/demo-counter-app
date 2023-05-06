@@ -12,6 +12,13 @@ pipeline {
             }
         }
 
+	 stage ('UNIT testing') {
+
+            steps {
+
+                sh 'mvn test'
+            }
+        }
     }
 
 }
