@@ -47,15 +47,15 @@ pipeline {
             }
 	}		
        }	
-	
-	stage ('Quality gate status') {
+	stage ('Quality gate analisys'){
 
-            script {
+		steps {
 
-                waitForQualityGate abortPipeline: false, credentialsId: 'sonarqubeapikey'
-            }
-         }
+			waitForQualityGate abortPipeline: false, credentialsId: 'sonarqubeapikey'
+			}
+		
+		}	
+	  }
 
-  }
-
+	}
 }
