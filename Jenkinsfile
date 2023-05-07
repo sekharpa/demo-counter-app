@@ -41,8 +41,9 @@ pipeline {
             steps {
 
               script{ 
-		withSonarQubeEnv abortPipeline: false, credentialsId: 'sonarqubeapikey'
+		withSonarQubeEnv (abortPipeline: false, credentialsId: 'sonarqubeapikey') {
                 sh 'mvn clean package sonar:sonar'
+		}
             }
 	}		
        }	
