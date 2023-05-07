@@ -36,7 +36,7 @@ pipeline {
             }
         }
  	
-           stage ('Static ,code ananlysis ') {
+           stage ('Static code  analaysis') {
 
             steps {
 
@@ -44,7 +44,7 @@ pipeline {
                 sh 'mvn clean package sonar:sonar'
             }
 	}		
-        }	
+       }	
 
 
   }
