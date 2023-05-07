@@ -46,10 +46,12 @@ pipeline {
 		}
             }
 	}		
-       }	
-	stage ('Quality gate analisys'){
+     }	
+	stage ('Quality gate analasys'){
 
 		steps {
+
+			script{
 
 			waitForQualityGate abortPipeline: false, credentialsId: 'sonarqubeapikey'
 			}
