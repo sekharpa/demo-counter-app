@@ -35,6 +35,17 @@ pipeline {
                 sh 'mvn clean install'
             }
         }
+ 	
+           stage ('Static ,code ananlysis ') {
+
+            steps {
+
+                waitForQualityGate abortPipeline: false, credentialsId: 'sonarqubeapikey'
+                sh 'mvn clean package sonar:sonar'
+            }
+        }	
+
+
   }
 
 }
