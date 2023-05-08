@@ -36,18 +36,21 @@ pipeline {
             }
         }
  	
-           stage ('Static code  analaysis') {
+           stage('Static code  analaysis') {
 
             steps {
 
-              script{ 
+              script{
+ 
 		withSonarQubeEnv (abortPipeline: false, credentialsId: 'sonarqubeapikey') {
                 sh 'mvn clean package sonar:sonar'
+
 		}
             }
 	}		
 
- 	   	
+    }	   	
+
 	stage ('upload jar file to nexus'){
 
 	steps {
