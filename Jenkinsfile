@@ -47,7 +47,7 @@ pipeline {
             }
 	}		
 
-     }	   	
+ 	   	
 	stage ('upload jar file to nexus'){
 
 	steps {
@@ -62,5 +62,3 @@ pipeline {
 	}	 
 
     }	
-  }		
-}
