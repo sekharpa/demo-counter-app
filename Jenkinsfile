@@ -56,15 +56,17 @@ pipeline {
 
        
            stage ('Quality gate status') {
+               
+               steps {
 
             script {
 
                 waitForQualityGate abortPipeline: false, credentialsId: 'sonarqubeapikey'
             }
          } 
-       
+       }
 
-            stage ('Maven Build ') {
+            stage ('code Build ') {
 
             steps {
 
