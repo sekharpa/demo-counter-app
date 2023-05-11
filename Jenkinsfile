@@ -61,19 +61,10 @@ pipeline {
 
             script {
 
-                waitForQualityGate ( abortPipeline: false, credentialsId: 'newsonartoken')
+                waitForQualityGate abortPipeline: false, credentialsId: 'newsonartoken'
             }
          } 
        }
-
-            stage ('code Build ') {
-
-            steps {
-
-                sh 'mvn clean install'
-            }
-        }
-       
     }
 
 }
