@@ -12,58 +12,67 @@ pipeline {
             }
         }
 
-	 stage ('UNIT testing') {
+        stage ('UNIT Testing ') {
 
             steps {
 
                 sh 'mvn clean test'
             }
         }
-   
-	stage ('Integration Testing ') {
+
+        stage ('Integration Testing ') {
 
             steps {
 
                 sh 'mvn verify -DskipUnitTests'
             }
         }
-	
-	        stage ('Maven Build ') {
+    
+        stage ('Maven Build ') {
 
             steps {
 
                 sh 'mvn clean install'
             }
         }
- 	
-           stage('Static code  analaysis') {
+
+        stage ('Sonarqube analaysis') {
 
             steps {
 
-              script{
- 
-		withSonarQubeEnv (abortPipeline: false, credentialsId: 'sonarqubeapikey') {
-                sh 'mvn clean package sonar:sonar'
+                script {
 
-		}
+                      withSonarQubeEnv (abortPipeline: false, credentialsId: 'sonarqubeapikey' ) {
+
+                            sh 'mvn clean package sonar:sonar'
+                      }
+                         
+
+                }
+
             }
-	}		
 
-    }	   	
+        }    
 
-	stage ('upload jar file to nexus'){
+       
+           stage ('Quality gate status') {
 
-	steps {
+            script {
 
-	   script {
-
-		nexusArtifactUploader artifacts: [[artifactId: 'springboot', classifier: '', file: 'target/Uber.jar', type: 'jar']], credentialsId: 'nexusauth', groupId: 'com.example', nexusUrl: '3.27.44.65:8081', nexusVersion: 'nexus3', protocol: 'https', repository: 'maven-releases', version: '1.0.0'
-          
+                waitForQualityGate abortPipeline: false, credentialsId: 'sonarqubeapikey'
             }
-          }
+         } 
+       
 
-	}	 
+            stage ('Maven Build ') {
 
+            steps {
+
+                sh 'mvn clean install'
+            }
+        }
+
+       
     }
 
- }	
+}
